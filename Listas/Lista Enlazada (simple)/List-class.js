@@ -19,7 +19,7 @@ class List {
 
 	createNodo(Value) {
 		return {
-			value: Value,
+			data: Value,
 			pointer: null,
 		};
 	}
@@ -30,18 +30,6 @@ class List {
 		this.head = node;
 
 		this.length++;
-	}
-
-	readList() {
-		if (!this.emptyList()) {
-			var index = this.head;
-
-			while (index.pointer !== null) {
-				console.log(index);
-				index = index.pointer;
-			}
-			console.log(index);
-		}
 	}
 
 	insertAtTheEnd(Value) {
@@ -60,18 +48,32 @@ class List {
 		}
 	}
 
-	insertAfterIndex(Value, Index) {
-		if (this.emptyList()) {
+	readList() {
+		if (!this.emptyList()) {
+			var index = this.head;
+			var list = '';
+
+			while (index !== null) {
+				list += index.data + '->';
+				index = index.pointer;
+			}
+			console.log(list + 'Null');
+		}
+	}
+
+	insertIndex(Value, Index) {
+		if (Index === 0) {
 			this.insertAtStart(Value);
-		} else {
+		} else if (Index === this.length) {
+			this.insertAtTheEnd(Value);
+		} else if (Index < this.length) {
 			var index = this.head;
 			var node = this.createNodo(Value);
 
-			var i = 0;
-			while (index.pointer !== null && i < Index) {
+			for (var i = 0; i < Index - 1; i++) {
 				index = index.pointer;
-				i++;
 			}
+
 			node.pointer = index.pointer;
 			index.pointer = node;
 
@@ -82,10 +84,9 @@ class List {
 	/**
 	 * The garbage collector will take care of the object that is no longer being referenced
 	 */
-	deleteFirstNodo() {
+	deleteFirstNode() {
 		if (!this.emptyList()) {
 			this.head = this.head.pointer;
-
 			this.length--;
 		}
 	}
@@ -104,25 +105,26 @@ class List {
 
 				this.length--;
 			} else {
-				this.deleteFirstNodo(Lista);
+				this.deleteFirstNode(Lista);
 			}
 		}
 	}
 
-	deleteAfterIndex(Index) {
-		if (!this.emptyList() && Index < getLength()) {
+	deleteIndex(Index) {
+		if (Index === 0) {
+			this.deleteFirstNode();
+		} else if (Index === this.length - 1) {
+			this.deleteLastNode();
+		} else if (!this.emptyList() && Index < this.length) {
 			var index = this.head;
-			var i = 0;
-			while (index.pointer !== null && i < Index) {
+
+			for (var i = 0; i < Index - 1; i++) {
 				index = index.pointer;
-				i++;
 			}
 
-			if (i != Index) {
-				index.pointer = index.pointer.pointer;
+			index.pointer = index.pointer.pointer;
 
-				this.length--;
-			}
+			this.length--;
 		}
 	}
 }
@@ -132,9 +134,18 @@ class List {
 var list = new List();
 
 list.insertAtStart(1);
-
 list.insertAtTheEnd(2);
+list.insertIndex(3, 1);
 
-list.insertAfterIndex(3, 1);
+list.readList();
+
+list.deleteIndex(1);
+list.deleteIndex(0);
+
+list.readList();
+
+list.insertIndex(1, 0);
+list.insertIndex(2, 0);
+list.insertIndex(3, 0);
 
 list.readList();

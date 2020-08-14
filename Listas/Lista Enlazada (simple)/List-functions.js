@@ -19,12 +19,13 @@ function insertAtStart(Lista, Value) {
 
 function readList(Lista) {
 	var index = Lista.head;
+	var list = '';
 	if (index !== null) {
-		while (index.pointer !== null) {
-			console.log(index);
+		while (index !== null) {
+			list += index.value + ' -> ';
 			index = index.pointer;
 		}
-		console.log(index);
+		console.log(list + 'Null');
 	}
 }
 
@@ -44,18 +45,17 @@ function insertAtTheEnd(Lista, Value) {
 	}
 }
 
-function insertAfterIndex(Lista, Value, Index) {
-	if (Lista.head === null) {
+function insertIndex(Lista, Value, Index) {
+	if (Index === 0) {
 		insertAtStart(Lista, Value);
 	} else {
 		var index = Lista.head;
 		var node = createNodo(Value);
 
-		var i = 0;
-		while (index.pointer !== null && i < Index) {
+		for (var i = 0; i < Index - 1; i++) {
 			index = index.pointer;
-			i++;
 		}
+
 		node.pointer = index.pointer;
 		index.pointer = node;
 
@@ -93,13 +93,16 @@ function deleteLastNode(Lista) {
 	}
 }
 
-function deleteAfterIndex(Lista, Index) {
-	if (Lista.head !== null && Index < Lista.length) {
+function deleteIndex(Lista, Index) {
+	if (Index === 0) {
+		deleteFirstNodo();
+	} else if (Index === Lista.length) {
+		deleteLastNode();
+	} else if (Index < Lista.length) {
 		var index = Lista.head;
-		var i = 0;
-		while (index.pointer !== null && i < Index) {
+
+		for (var i = 0; i < Index - 1; i++) {
 			index = index.pointer;
-			i++;
 		}
 
 		index.pointer = index.pointer.pointer;
@@ -119,8 +122,6 @@ insertAtStart(Lista, 1);
 
 insertAtTheEnd(Lista, 2);
 
-insertAfterIndex(Lista, 3, 1);
+insertIndex(Lista, 3, 1);
 
 readList(Lista);
-
-console.log(Lista.length);
