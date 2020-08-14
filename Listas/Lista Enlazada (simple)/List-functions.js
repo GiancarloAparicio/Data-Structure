@@ -1,14 +1,12 @@
 /**
- *   Lista Simple
+ *   Lista Simple functions
  * */
 
 function createNodo(Value) {
-	var node = {
+	return {
 		value: Value,
 		pointer: null,
 	};
-
-	return node;
 }
 
 function insertAtStart(Lista, Value) {
@@ -16,7 +14,7 @@ function insertAtStart(Lista, Value) {
 	node.pointer = Lista.head;
 	Lista.head = node;
 
-	length++;
+	Lista.length++;
 }
 
 function readList(Lista) {
@@ -42,7 +40,7 @@ function insertAtTheEnd(Lista, Value) {
 		}
 		index.pointer = node;
 
-		length++;
+		Lista.length++;
 	}
 }
 
@@ -61,7 +59,7 @@ function insertAfterIndex(Lista, Value, Index) {
 		node.pointer = index.pointer;
 		index.pointer = node;
 
-		length++;
+		Lista.length++;
 	}
 }
 
@@ -72,7 +70,7 @@ function deleteFirstNodo(Lista) {
 	if (Lista.head !== null) {
 		Lista.head = Lista.head.pointer;
 
-		length--;
+		Lista.length--;
 	}
 }
 
@@ -88,7 +86,7 @@ function deleteLastNode(Lista) {
 			}
 			index.pointer = null;
 
-			length--;
+			Lista.length--;
 		} else {
 			deleteFirstNodo(Lista);
 		}
@@ -96,7 +94,7 @@ function deleteLastNode(Lista) {
 }
 
 function deleteAfterIndex(Lista, Index) {
-	if (Lista.head !== null && Index < getLength()) {
+	if (Lista.head !== null && Index < Lista.length) {
 		var index = Lista.head;
 		var i = 0;
 		while (index.pointer !== null && i < Index) {
@@ -104,24 +102,17 @@ function deleteAfterIndex(Lista, Index) {
 			i++;
 		}
 
-		if (i != Index) {
-			index.pointer = index.pointer.pointer;
+		index.pointer = index.pointer.pointer;
 
-			length--;
-		}
+		Lista.length--;
 	}
-}
-
-var length = 0;
-
-function getLength() {
-	return length;
 }
 
 // Implementation
 
 var Lista = {
 	head: null,
+	length: 0,
 };
 
 insertAtStart(Lista, 1);
@@ -131,3 +122,5 @@ insertAtTheEnd(Lista, 2);
 insertAfterIndex(Lista, 3, 1);
 
 readList(Lista);
+
+console.log(Lista.length);
