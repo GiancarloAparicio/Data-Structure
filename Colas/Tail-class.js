@@ -58,9 +58,6 @@ var cola = new Tail();
 cola.insertNode(1);
 cola.insertNode(2);
 cola.insertNode(3);
-cola.getFirstNode();
-cola.deleteFirstNode();
-cola.getFirstNode();
-cola.deleteFirstNode();
+
 cola.getFirstNode();
 cola.deleteFirstNode();
