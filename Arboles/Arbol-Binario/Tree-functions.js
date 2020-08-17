@@ -14,8 +14,7 @@ function insertNode(tree, value) {
 	 *  If the root of the tree is empty, then the root will be created
 	 */
 	if (emptyNode(tree.root)) {
-		var node = createNode(value);
-		tree.root = node;
+		tree.root = createNode(value);
 	} else {
 		/**
 		 *  While the root of a tree "N" is not empty, the tree will be traversed
@@ -91,6 +90,41 @@ function findNode(value, tree) {
 	}
 }
 
+/**
+ * First the left tree is processed, then the root and then the right tree
+ *  left -> root -> right
+ */
+function inOrder(root) {
+	if (!emptyNode(root)) {
+		inOrder(root.leftPointer);
+		console.log(root.data);
+		inOrder(root.rightPointer);
+	}
+}
+
+/**
+ * First the root is processed, then the tree on the left and then the tree on the right
+ *   root -> left -> right
+ */
+function preOrder(root) {
+	if (!emptyNode(root)) {
+		console.log(root.data);
+		preOrder(root.leftPointer);
+		preOrder(root.rightPointer);
+	}
+}
+/**
+ * First the left tree is processed, then the right tree and then the root
+ *   left -> right -> root
+ */
+function postOrder(root) {
+	if (!emptyNode(root)) {
+		postOrder(root.leftPointer);
+		postOrder(root.rightPointer);
+		console.log(root.data);
+	}
+}
+
 //Implementation
 
 var tree = {
@@ -103,6 +137,9 @@ insertNode(tree, 3);
 insertNode(tree, -1);
 insertNode(tree, -2);
 
-valueExists(tree.root, 1);
 valueExists(tree.root, 2);
-valueExists(tree.root, 3);
+valueExists(tree.root, 8);
+
+preOrder(tree.root);
+postOrder(tree.root);
+inOrder(tree.root);
