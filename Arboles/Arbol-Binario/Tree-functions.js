@@ -5,7 +5,7 @@ function createNode(value) {
 		rightPointer: null,
 	};
 }
-function emptyTree(root) {
+function emptyNode(root) {
 	return root === null;
 }
 
@@ -13,7 +13,7 @@ function insertNode(tree, value) {
 	/**
 	 *  If the root of the tree is empty, then the root will be created
 	 */
-	if (emptyTree(tree.root)) {
+	if (emptyNode(tree.root)) {
 		var node = createNode(value);
 		tree.root = node;
 	} else {
@@ -23,14 +23,14 @@ function insertNode(tree, value) {
 		 */
 		var pointer = tree.root;
 
-		while (!emptyTree(pointer)) {
+		while (!emptyNode(pointer)) {
 			if (value < pointer.data) {
 				/**
 				 * If the tree on the left is empty, a new node will be created and if it
 				 * is busy, the pointer to that tree will be changed.
 				 */
 
-				if (emptyTree(pointer.leftPointer)) {
+				if (emptyNode(pointer.leftPointer)) {
 					pointer.leftPointer = createNode(value);
 					break;
 				} else {
@@ -42,7 +42,7 @@ function insertNode(tree, value) {
 				 * is busy, the pointer to that tree will be changed.
 				 */
 
-				if (emptyTree(pointer.rightPointer)) {
+				if (emptyNode(pointer.rightPointer)) {
 					pointer.rightPointer = createNode(value);
 					break;
 				} else {
@@ -54,7 +54,7 @@ function insertNode(tree, value) {
 }
 
 function valueExists(root, value) {
-	if (emptyTree(root)) {
+	if (emptyNode(root)) {
 		console.log(false);
 	} else if (root.data === value) {
 		console.log(true);
@@ -64,6 +64,34 @@ function valueExists(root, value) {
 		valueExists(root.rightPointer, value);
 	}
 }
+
+function findNode(value, tree) {
+	if (emptyNode(tree.root)) {
+		return null;
+	} else {
+		var pointer = tree.root;
+
+		while (!emptyNode(pointer)) {
+			if (value < pointer.data) {
+				if (emptyNode(pointer.leftPointer)) {
+					return null;
+				} else {
+					pointer = pointer.leftPointer;
+				}
+			} else if (pointer.data < value) {
+				if (emptyNode(pointer.rightPointer)) {
+					return null;
+				} else {
+					pointer = pointer.rightPointer;
+				}
+			} else if (pointer.data === value) {
+				return pointer;
+			}
+		}
+	}
+}
+
+//Implementation
 
 var tree = {
 	root: null,
