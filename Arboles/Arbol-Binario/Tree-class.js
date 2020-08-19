@@ -63,7 +63,7 @@ class Tree {
 	 *   root -> left -> right
 	 */
 	preOrder(pointerNode = this.root) {
-		if (!this.emptyTree()) {
+		if (!this.emptyTree(pointerNode)) {
 			console.log(pointerNode.data);
 			this.preOrder(pointerNode.leftPointer);
 			this.preOrder(pointerNode.rightPointer);
@@ -75,7 +75,7 @@ class Tree {
 	 *  left -> root -> right
 	 */
 	inOrder(pointerNode = this.root) {
-		if (!this.emptyTree()) {
+		if (!this.emptyTree(pointerNode)) {
 			this.inOrder(pointerNode.leftPointer);
 			console.log(pointerNode.data);
 			this.inOrder(pointerNode.rightPointer);
@@ -87,7 +87,7 @@ class Tree {
 	 *   left -> right -> root
 	 */
 	postOrder(pointerNode = this.root) {
-		if (!this.emptyTree) {
+		if (!this.emptyTree(pointerNode)) {
 			this.postOrder(pointerNode.leftPointer);
 			this.postOrder(pointerNode.rightPointer);
 			console.log(pointerNode.data);
@@ -95,21 +95,21 @@ class Tree {
 	}
 
 	findNode(value, node = this.root) {
-		if (this.emptyNode()) {
+		if (this.emptyTree()) {
 			return null;
 		} else {
 			var pointer = node;
 
-			while (!this.emptyNode(pointer)) {
+			while (!this.emptyTree(pointer)) {
 				if (value < pointer.data) {
-					if (this.emptyNode(pointer.leftPointer)) {
+					if (this.emptyTree(pointer.leftPointer)) {
 						break;
 					} else {
 						pointer = pointer.leftPointer;
 						continue;
 					}
 				} else if (pointer.data < value) {
-					if (this.emptyNode(pointer.rightPointer)) {
+					if (this.emptyTree(pointer.rightPointer)) {
 						break;
 					} else {
 						pointer = pointer.rightPointer;
@@ -120,6 +120,78 @@ class Tree {
 				}
 			}
 		}
+	}
+
+	findFather(value, node = this.root) {
+		if (this.root.data === value) return null;
+
+		if (value < node.data) {
+			if (value === node.leftPointer.data) {
+				return node;
+			} else {
+				return this.findFather(value, node.leftPointer);
+			}
+		}
+
+		if (node.data < value) {
+			if (value === node.rightPointer.data) {
+				return node;
+			} else {
+				return this.findFather(value, node.rightPointer);
+			}
+		}
+	}
+
+	/**
+	 * Explanation of the method
+	 * 	https://devs4j.com/2017/12/04/borrar-elementos-de-un-arbol-binario/
+	 */
+	deleteNode(value, node = this.root) {
+		/**
+		 * The father of the node to be eliminated is searched for, if it does not exist,
+		 * null is returned
+		 */
+		var father = this.findFather(value);
+		if (father === null) return null;
+
+		/**
+		 *	The child node to be removed is chosen
+		 */
+		var node;
+		var property;
+		if (value < father.data) {
+			node = father.leftPointer;
+			property = 'leftPointer';
+		} else {
+			node = father.rightPointer;
+			property = 'rightPointer';
+		}
+
+		/**
+		 *	If the node does not have a child node, the father reference pointing to it is
+		 *  set to null. The removed value is returned
+		 */
+		if (!node.leftPointer && !node.rightPointer) {
+			father[property] = null;
+			return value;
+		}
+
+		/**
+		 *	If the node has only 1 child node, change the father pointer to point to your
+		 *  child's node
+		 */
+		if (!node.leftPointer) {
+			father[property] = node.rightPointer;
+			return value;
+		}
+		if (!node.rightPointer) {
+			father[property] = node.leftPointer;
+			return value;
+		}
+
+		/**
+		 * If the node has 2 children,
+		 */
 	}
 }
 
