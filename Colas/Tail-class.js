@@ -21,7 +21,7 @@ class Tail {
 	}
 
 	insertNode(value) {
-		var node = this.createNode(value);
+		let node = this.createNode(value);
 
 		if (this.emptyTail()) {
 			this.firstNode = node;
@@ -53,7 +53,7 @@ class Tail {
 }
 
 //Implementation
-var cola = new Tail();
+let cola = new Tail();
 
 cola.insertNode(1);
 cola.insertNode(2);

@@ -2,7 +2,7 @@
  *  Vectores
  **/
 
-var array = [1, 2, 3];
+let array = [1, 2, 3];
 array[4]; //6
 
 // Insert to tail

@@ -10,7 +10,7 @@ function createNodo(Value) {
 }
 
 function insertAtStart(Lista, Value) {
-	var node = createNodo(Value);
+	let node = createNodo(Value);
 	node.pointer = Lista.head;
 	Lista.head = node;
 
@@ -18,8 +18,8 @@ function insertAtStart(Lista, Value) {
 }
 
 function readList(Lista) {
-	var index = Lista.head;
-	var list = '';
+	let index = Lista.head;
+	let list = '';
 	if (index !== null) {
 		while (index !== null) {
 			list += index.value + ' -> ';
@@ -33,8 +33,8 @@ function insertAtTheEnd(Lista, Value) {
 	if (Lista.head === null) {
 		insertAtStart(Lista, Value);
 	} else {
-		var index = Lista.head;
-		var node = createNodo(Value);
+		let index = Lista.head;
+		let node = createNodo(Value);
 
 		while (index.pointer !== null) {
 			index = index.pointer;
@@ -49,10 +49,10 @@ function insertIndex(Lista, Value, Index) {
 	if (Index === 0) {
 		insertAtStart(Lista, Value);
 	} else {
-		var index = Lista.head;
-		var node = createNodo(Value);
+		let index = Lista.head;
+		let node = createNodo(Value);
 
-		for (var i = 0; i < Index - 1; i++) {
+		for (let i = 0; i < Index - 1; i++) {
 			index = index.pointer;
 		}
 
@@ -80,7 +80,7 @@ function deleteFirstNodo(Lista) {
 function deleteLastNode(Lista) {
 	if (Lista.head !== null) {
 		if (Lista.head.pointer !== null) {
-			var index = Lista.head;
+			let index = Lista.head;
 			while (index.pointer.pointer !== null) {
 				index = index.pointer;
 			}
@@ -99,9 +99,9 @@ function deleteIndex(Lista, Index) {
 	} else if (Index === Lista.length) {
 		deleteLastNode();
 	} else if (Index < Lista.length) {
-		var index = Lista.head;
+		let index = Lista.head;
 
-		for (var i = 0; i < Index - 1; i++) {
+		for (let i = 0; i < Index - 1; i++) {
 			index = index.pointer;
 		}
 
@@ -113,7 +113,7 @@ function deleteIndex(Lista, Index) {
 
 // Implementation
 
-var Lista = {
+let Lista = {
 	head: null,
 	length: 0,
 };

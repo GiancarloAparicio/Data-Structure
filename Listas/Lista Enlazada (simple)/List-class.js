@@ -25,7 +25,7 @@ class List {
 	}
 
 	insertAtStart(Value) {
-		var node = this.createNodo(Value);
+		let node = this.createNodo(Value);
 		node.pointer = this.head;
 		this.head = node;
 
@@ -36,8 +36,8 @@ class List {
 		if (this.emptyList()) {
 			this.insertAtStart(Value);
 		} else {
-			var index = this.head;
-			var node = this.createNodo(Value);
+			let index = this.head;
+			let node = this.createNodo(Value);
 
 			while (index.pointer !== null) {
 				index = index.pointer;
@@ -50,8 +50,8 @@ class List {
 
 	readList() {
 		if (!this.emptyList()) {
-			var index = this.head;
-			var list = '';
+			let index = this.head;
+			let list = '';
 
 			while (index !== null) {
 				list += index.data + '->';
@@ -67,10 +67,10 @@ class List {
 		} else if (Index === this.length) {
 			this.insertAtTheEnd(Value);
 		} else if (Index < this.length) {
-			var index = this.head;
-			var node = this.createNodo(Value);
+			let index = this.head;
+			let node = this.createNodo(Value);
 
-			for (var i = 0; i < Index - 1; i++) {
+			for (let i = 0; i < Index - 1; i++) {
 				index = index.pointer;
 			}
 
@@ -97,7 +97,7 @@ class List {
 	deleteLastNode() {
 		if (!this.emptyList()) {
 			if (this.head.pointer !== null) {
-				var index = this.head;
+				let index = this.head;
 				while (index.pointer.pointer !== null) {
 					index = index.pointer;
 				}
@@ -116,9 +116,9 @@ class List {
 		} else if (Index === this.length - 1) {
 			this.deleteLastNode();
 		} else if (!this.emptyList() && Index < this.length) {
-			var index = this.head;
+			let index = this.head;
 
-			for (var i = 0; i < Index - 1; i++) {
+			for (let i = 0; i < Index - 1; i++) {
 				index = index.pointer;
 			}
 
@@ -131,7 +131,7 @@ class List {
 
 //Implementation
 
-var list = new List();
+let list = new List();
 
 list.insertAtStart(1);
 list.insertAtTheEnd(2);

@@ -13,48 +13,21 @@ class Tree {
 		return node === null;
 	}
 
-	insertAtTree(value) {
-		/**
-		 * If the root of the tree is empty, then the root will be created
-		 */
-		if (this.emptyTree()) {
-			var node = this.createNode(value);
-			this.root = node;
+	insert(value, node = this.root) {
+		//If the root of the tree (node) is empty, then the root will be created
+		if (this.emptyTree(node)) {
+			this.root = this.createNode(value);
+			return this.root;
+		}
+		//If the value is less than node.data the direction is to the left otherwise to the right
+		let direction = value < node.data ? 'leftPointer' : 'rightPointer';
+
+		//If the following tree is empty a new node will be created
+		if (this.emptyTree(pointer[direction])) {
+			pointer[direction] = this.createNode(value);
+			return pointer[direction];
 		} else {
-			/**
-			 *  While the root of a tree "N" is not empty, the tree will be traversed
-			 *  depending on whether the "value" is greater or less than "root.data"
-			 */
-
-			var pointer = this.root;
-
-			while (pointer !== null) {
-				if (value < pointer.data) {
-					/**
-					 * If the tree on the left is empty, a new node will be created and if
-					 * it is busy, the pointer to that tree will be changed.
-					 */
-
-					if (this.emptyTree(pointer.leftPointer)) {
-						pointer.leftPointer = this.createNode(value);
-						break;
-					} else {
-						pointer = pointer.leftPointer;
-					}
-				} else {
-					/**
-					 * If the tree to the right is empty, a new node will be created and if
-					 * it is busy, the pointer to that tree will be changed.
-					 */
-
-					if (this.emptyTree(pointer.rightPointer)) {
-						pointer.rightPointer = this.createNode(value);
-						break;
-					} else {
-						pointer = pointer.rightPointer;
-					}
-				}
-			}
+			return this.insert(value, pointer[direction]);
 		}
 	}
 
@@ -94,51 +67,45 @@ class Tree {
 		}
 	}
 
+	/**
+	 * Finds a node whose value is equal to value
+	 * @param {number|string} value
+	 * @param {object} node
+	 * @return {object}
+	 */
 	findNode(value, node = this.root) {
-		if (this.emptyTree()) {
-			return null;
-		} else {
-			var pointer = node;
+		if (this.emptyTree(node)) return null;
+		if (value === node.data) return node;
 
-			while (!this.emptyTree(pointer)) {
-				if (value < pointer.data) {
-					if (this.emptyTree(pointer.leftPointer)) {
-						break;
-					} else {
-						pointer = pointer.leftPointer;
-						continue;
-					}
-				} else if (pointer.data < value) {
-					if (this.emptyTree(pointer.rightPointer)) {
-						break;
-					} else {
-						pointer = pointer.rightPointer;
-						continue;
-					}
-				} else if (pointer.data === value) {
-					return pointer;
-				}
-			}
+		//If the value is less than node.data the direction is to the left otherwise to the right
+		let direction = value < node.data ? 'leftPointer' : 'rightPointer';
+
+		//If the value is equal to the next node.data returns the node (Father parent)
+		if (value === node[direction].data) {
+			return node[direction];
+		} else {
+			return this.findNode(value, node[direction]);
 		}
 	}
 
+	/**
+	 * Finds the parent of the node that has the value (value),
+	 *  optionally receives the node / tree where it will start searching
+	 * @param {number|string} value
+	 * @param {object} node
+	 * @return {object}
+	 */
 	findFather(value, node = this.root) {
-		if (this.root.data === value) return null;
+		if (this.emptyTree(node)) return null;
 
-		if (value < node.data) {
-			if (value === node.leftPointer.data) {
-				return node;
-			} else {
-				return this.findFather(value, node.leftPointer);
-			}
-		}
+		//If the value is less than root.data the direction is to the left otherwise to the right
+		let direction = value < node.data ? 'leftPointer' : 'rightPointer';
 
-		if (node.data < value) {
-			if (value === node.rightPointer.data) {
-				return node;
-			} else {
-				return this.findFather(value, node.rightPointer);
-			}
+		//If the value is equal to the next node.data returns the node (Father parent)
+		if (value === node[direction].data) {
+			return node;
+		} else {
+			return this.findFather(value, node[direction]);
 		}
 	}
 
@@ -151,28 +118,21 @@ class Tree {
 		 * The father of the node to be eliminated is searched for, if it does not exist,
 		 * null is returned
 		 */
-		var father = this.findFather(value);
+		let father = this.findFather(value);
 		if (father === null) return null;
 
-		/**
-		 *	The child node to be removed is chosen
-		 */
-		var node;
-		var property;
-		if (value < father.data) {
-			node = father.leftPointer;
-			property = 'leftPointer';
-		} else {
-			node = father.rightPointer;
-			property = 'rightPointer';
-		}
+		//The child node to be removed is chosen
+
+		//If the value is less than root.data the direction is to the left otherwise to the right
+		let direction = value < father.data ? 'leftPointer' : 'rightPointer';
+		let node = father[direction];
 
 		/**
 		 *	If the node does not have a child node, the father reference pointing to it is
 		 *  set to null. The removed value is returned
 		 */
 		if (!node.leftPointer && !node.rightPointer) {
-			father[property] = null;
+			father[direction] = null;
 			return value;
 		}
 
@@ -181,25 +141,23 @@ class Tree {
 		 *  child's node
 		 */
 		if (!node.leftPointer) {
-			father[property] = node.rightPointer;
+			father[direction] = node.rightPointer;
 			return value;
 		}
 		if (!node.rightPointer) {
-			father[property] = node.leftPointer;
+			father[direction] = node.leftPointer;
 			return value;
 		}
 
-		/**
-		 * If the node has 2 children,
-		 */
+		//If the node has 2 or more children
 	}
 }
 
 //Implementation
 
-var arbol = new Tree();
-arbol.insertAtTree(1);
-arbol.insertAtTree(2);
-arbol.insertAtTree(3);
-arbol.insertAtTree(-1);
-arbol.insertAtTree(-2);
+let tree = new Tree();
+tree.insert(1);
+tree.insert(2);
+tree.insert(3);
+tree.insert(-1);
+tree.insert(-2);

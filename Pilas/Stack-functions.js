@@ -2,8 +2,8 @@
  *  A stack is a structure, where it can be stacked using the beginning or the end
  *  (Only one of these options not from the two)
  *
- *   1:(Cima) 4 -> 3 -> 2 -> 1 -> null  //From the cima to the head
- *   2:(Cima) <- 4 <- 3 <- 2 <- 1       //From head to cima
+ *   1:(Top) 4 -> 3 -> 2 -> 1 -> null  //From the Top to the head
+ *   2:(Top) <- 4 <- 3 <- 2 <- 1       //From head to Top
  *
  *  Used example number 1
  */
@@ -20,7 +20,7 @@ function emptyStack(stack) {
 }
 
 function insertAtEnd(stack, value) {
-	var node = createNode(value);
+	let node = createNode(value);
 	node.pointer = stack.lastNode;
 	stack.lastNode = node;
 	stack.length++;
@@ -41,20 +41,20 @@ function deleteAtEnd(stack) {
 
 function getStack(stack) {
 	if (!emptyStack(stack)) {
-		var stackList = '';
-		var node = stack.lastNode;
-		for (var i = 0; i < stack.length; i++) {
+		let stackList = '';
+		let node = stack.lastNode;
+		for (let i = 0; i < stack.length; i++) {
 			stackList += node.data + ' -> ';
 			node = node.pointer;
 		}
 
-		console.log('(Cima) ' + stackList + 'null');
+		console.log('(Top) ' + stackList + 'null');
 	}
 }
 
 //Implementation
 
-var stack = {
+let stack = {
 	lastNode: null,
 	length: 0,
 };

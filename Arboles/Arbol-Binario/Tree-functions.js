@@ -5,6 +5,7 @@ function createNode(value) {
 		rightPointer: null,
 	};
 }
+
 function emptyNode(root) {
 	return root === null;
 }
@@ -20,7 +21,7 @@ function insertNode(tree, value) {
 		 *  While the root of a tree "N" is not empty, the tree will be traversed
 		 *  depending on whether the "value" is greater or less than "root.data"
 		 */
-		var pointer = tree.root;
+		let pointer = tree.root;
 
 		while (!emptyNode(pointer)) {
 			if (value < pointer.data) {
@@ -68,7 +69,7 @@ function findNode(value, tree) {
 	if (emptyNode(tree.root)) {
 		return null;
 	} else {
-		var pointer = tree.root;
+		let pointer = tree.root;
 
 		while (!emptyNode(pointer)) {
 			if (value < pointer.data) {
@@ -127,7 +128,7 @@ function postOrder(root) {
 
 //Implementation
 
-var tree = {
+let tree = {
 	root: null,
 };
 

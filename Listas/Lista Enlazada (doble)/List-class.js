@@ -29,7 +29,7 @@ class List {
 	}
 
 	insertAtStart(value) {
-		var node = this.createDoubleNode(value);
+		let node = this.createDoubleNode(value);
 
 		if (this.emptyList()) {
 			this.startList = node;
@@ -46,7 +46,7 @@ class List {
 		if (this.emptyList()) {
 			this.insertAtStart(value);
 		} else {
-			var node = this.createDoubleNode(value);
+			let node = this.createDoubleNode(value);
 			node.pointerBefore = this.endList;
 			this.endList.pointerAfter = node;
 			this.endList = node;
@@ -61,15 +61,15 @@ class List {
 		} else if (index === this.length) {
 			this.insertAtTheEnd(value);
 		} else if (index < this.length) {
-			var current = this.startList;
+			let current = this.startList;
 
-			for (var i = 0; i < index - 1; i++) {
+			for (let i = 0; i < index - 1; i++) {
 				current = current.pointerAfter;
 			}
 
-			var nodeAfter = current.pointerAfter;
+			let nodeAfter = current.pointerAfter;
 
-			var node = this.createDoubleNode(value); //Nodo que sera agregado
+			let node = this.createDoubleNode(value); //Nodo que sera agregado
 
 			//Izquierda
 			node.pointerBefore = current;
@@ -95,7 +95,7 @@ class List {
 			if (this.startList.pointerAfter === null) {
 				this.deleteFirstNodo(Lista);
 			} else {
-				var index = this.endList;
+				let index = this.endList;
 
 				index = index.pointerBefore;
 				index.pointerAfter = null;
@@ -108,8 +108,8 @@ class List {
 
 	readList() {
 		if (!this.emptyList()) {
-			var index = this.startList;
-			var list = '';
+			let index = this.startList;
+			let list = '';
 
 			while (index.pointerAfter !== null) {
 				list += index.data + ' <-> ';
@@ -121,7 +121,7 @@ class List {
 }
 
 //Implementation
-var lista = new List();
+let lista = new List();
 
 lista.insertAtStart(1);
 lista.insertAtStart(2);

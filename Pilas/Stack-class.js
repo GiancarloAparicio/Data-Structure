@@ -2,10 +2,10 @@
  *  A stack is a structure, where it can be stacked using the beginning or the end
  *  (Only one of these options not from the two)
  *
- *   1:(Cima) 4 -> 3 -> 2 -> 1 -> null  //From the cima to the head
- *   2:(Cima) <- 4 <- 3 <- 2 <- 1       //From head to cima
+ *   1:(Top) 4 -> 3 -> 2 -> 1 -> null  //From the Top to the head
+ *   2:(Top) <- 4 <- 3 <- 2 <- 1       //From head to Top
  *
- *  Used example number 1
+ *  In the example, the form number 1 was used
  */
 
 class Stack {
@@ -29,7 +29,7 @@ class Stack {
 	}
 
 	insertAtEnd(value) {
-		var node = this.createNode(value);
+		let node = this.createNode(value);
 		node.pointer = this.lastNode;
 		this.lastNode = node;
 		this.length++;
@@ -49,9 +49,9 @@ class Stack {
 
 	getStack() {
 		if (!this.emptyStack()) {
-			var stack = '';
-			var node = this.lastNode;
-			for (var i = 0; i < this.length; i++) {
+			let stack = '';
+			let node = this.lastNode;
+			for (let i = 0; i < this.length; i++) {
 				stack += node.data + ' -> ';
 				node = node.pointer;
 			}
@@ -63,7 +63,7 @@ class Stack {
 
 //Implementation
 
-var pila = new Stack();
+let pila = new Stack();
 
 pila.insertAtEnd(1);
 pila.insertAtEnd(2);

@@ -6,7 +6,7 @@ function createNode(value) {
 }
 
 function insertNode(tail, value) {
-	var node = createNode(value);
+	let node = createNode(value);
 
 	if (tail.firstNode === null) {
 		tail.firstNode = node;
@@ -38,7 +38,7 @@ function deleteFirstNode(tail) {
 
 //Implementation
 
-var tail = {
+let tail = {
 	firstNode: null,
 	lastNode: null,
 	length: 0,
